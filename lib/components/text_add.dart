@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_list/servises/user_add.dart';
 
 class TextFieldAdd extends StatelessWidget {
   const TextFieldAdd({
@@ -25,8 +26,8 @@ class TextFieldAdd extends StatelessWidget {
           ),
         ],
       ),
-      child: const TextField(
-        decoration: InputDecoration(
+      child: TextField(
+        decoration: const InputDecoration(
           hintText: 'Add',
           hintStyle: TextStyle(
             color: Color.fromARGB(104, 75, 116, 79),
@@ -34,6 +35,9 @@ class TextFieldAdd extends StatelessWidget {
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
         ),
+        onChanged: (String value) {
+          AddText().usertodo = value;
+        },
       ),
     );
   }

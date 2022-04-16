@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_list/bloc/user_bloq.dart';
+import 'package:to_do_list/bloc/user_events.dart';
 
 class ButtonsAddClear extends StatelessWidget {
   const ButtonsAddClear({
@@ -7,6 +10,7 @@ class ButtonsAddClear extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserBloc userBloc = BlocProvider.of<UserBloc>(context);
     return Container(
       padding: const EdgeInsets.only(left: 60, right: 60, top: 30, bottom: 15),
       child: Row(
@@ -15,7 +19,9 @@ class ButtonsAddClear extends StatelessWidget {
             width: 150,
             height: 50,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                userBloc.add(UserAddEvent());
+              },
               child: const Text(
                 'Add',
                 style: TextStyle(
@@ -34,7 +40,9 @@ class ButtonsAddClear extends StatelessWidget {
             width: 150,
             height: 50,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                userBloc.add(UserClaerEvent());
+              },
               child: const Text(
                 'Clear',
                 style: TextStyle(
