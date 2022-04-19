@@ -1,3 +1,0 @@
-class AddText {
-  dynamic usertodo;
-}
