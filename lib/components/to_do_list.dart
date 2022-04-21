@@ -15,6 +15,12 @@ class ToDoListState extends State<ToDoList> {
   Widget build(BuildContext context) {
     return BlocBuilder<TodoBloc, TodoState>(
       builder: (context, state) {
+        if (state is TodoEmpty) {
+          return const Expanded(
+            child: Text('click on "Add" to add the list'),
+          );
+        }
+
         if (state is TodoLoading) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -28,39 +34,56 @@ class ToDoListState extends State<ToDoList> {
               child: ListView.builder(
                   itemCount: state.todos.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return _todoCard(context, state.todos[index]);
+                    return _todoCard(context, state.todos[index], index);
                   }),
             ),
           );
         } else {
           return const Center(
-            child: Text('Sumething went wrong!!'),
+            child: Expanded(
+              child: Text('Sumething went wrong!!'),
+            ),
           );
         }
       },
     );
   }
 
-  Card _todoCard(BuildContext context, Todo todo) {
+  Card _todoCard(BuildContext context, Todo todo, int index) {
     return Card(
       child: ListTile(
-        /*leading: Text(
-          (index + 1).toString(),
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        ),*/
-        title: Text(todo.task),
-        trailing: IconButton(
-          icon: const Icon(
-            Icons.delete_sharp,
-            color: Color.fromARGB(255, 100, 168, 119),
+          leading: Text(
+            (index + 1).toString(),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
-          onPressed: () {
-            context.read<TodoBloc>().add(
-                  DeleteTodo(todo: todo),
-                );
-          },
-        ),
-      ),
+          title: Text(todo.task),
+          trailing: SizedBox(
+            height: double.infinity,
+            width: 80,
+            //color: Colors.amber,
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.done,
+                    color: Color.fromARGB(255, 100, 168, 119),
+                  ),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.delete_sharp,
+                    color: Color.fromARGB(255, 100, 168, 119),
+                  ),
+                  onPressed: () {
+                    context.read<TodoBloc>().add(
+                          DeleteTodo(todo: todo),
+                        );
+                  },
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

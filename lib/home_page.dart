@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_list/components/text_add.dart';
-
-import 'components/buttons_add_qlear.dart';
 import 'components/to_do_list.dart';
 
 class HomePage extends StatelessWidget {

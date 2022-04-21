@@ -1,18 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 import 'package:to_do_list/models/todo_model.dart';
-
 part 'todo_event.dart';
 part 'todo_state.dart';
 
+Color color1 = Colors.green;
+
 class TodoBloc extends Bloc<TodosEvent, TodoState> {
-  TodoBloc() : super(TodoLoading()) {
+  TodoBloc() : super(TodoEmpty()) {
     on<LoadTodos>(_onLoadTodus);
     on<AddTodo>(_onAddTodo);
     on<DeleteTodo>(_onDeleteTodo);
-    on<UpdateTodo>(_onUpdateTodo);
+    on<ColorTodo>(_onColorTodo);
   }
 
   void _onLoadTodus(LoadTodos event, Emitter<TodoState> emit) {
@@ -22,8 +22,10 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
   void _onAddTodo(AddTodo event, Emitter<TodoState> emit) {
     final state = this.state;
     if (state is TodoLoaded) {
-      TodoLoaded(
-        todos: List.from(state.todos)..add(event.todo),
+      emit(
+        TodoLoaded(
+          todos: List.from(state.todos)..add(event.todo),
+        ),
       );
     }
   }
@@ -40,5 +42,5 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
     }
   }
 
-  void _onUpdateTodo(UpdateTodo event, Emitter<TodoState> emit) {}
+  void _onColorTodo(ColorTodo event, Emitter<TodoState> emit) {}
 }

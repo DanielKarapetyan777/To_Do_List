@@ -20,9 +20,15 @@ class MyApp extends StatelessWidget {
           create: (context) => TodoBloc()
             ..add(
               LoadTodos(todos: [
-                Todo(task: "Sample ToDo 1"),
-                Todo(task: "Sample ToDo 2"),
-                Todo(task: "Sample ToDo 3"),
+                Todo(
+                  task: "Sample ToDo 1",
+                ),
+                Todo(
+                  task: "Sample ToDo 2",
+                ),
+                Todo(
+                  task: "Sample ToDo 3",
+                ),
               ]),
             ),
         )
@@ -32,7 +38,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: HomePage(),
+        home: const HomePage(),
       ),
     );
   }

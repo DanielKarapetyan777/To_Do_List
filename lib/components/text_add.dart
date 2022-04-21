@@ -15,11 +15,11 @@ class TextFieldAdd extends StatelessWidget {
     return BlocListener<TodoBloc, TodoState>(
       listener: (context, state) {
         if (state is TodoLoaded) {
-          ScaffoldMessenger.of(context).showSnackBar(
+          /*ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text("To Do Added!"),
             ),
-          );
+          );*/
         }
       },
       child: SizedBox(
@@ -43,21 +43,26 @@ class TextFieldAdd extends StatelessWidget {
                   ),
                 ],
               ),
-              child: TextField(
-                controller: controllerTask,
-                decoration: const InputDecoration(
-                  hintText: 'Add',
-                  hintStyle: TextStyle(
-                    color: Color.fromARGB(104, 75, 116, 79),
-                  ),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                ),
-              ),
+              child: _TextField(controllerTask),
             ),
             ButtonsAddClear(controllerTask: controllerTask),
           ],
         ),
+      ),
+    );
+  }
+
+  // ignore: non_constant_identifier_names
+  TextFormField _TextField(TextEditingController controller) {
+    return TextFormField(
+      controller: controller,
+      decoration: const InputDecoration(
+        hintText: 'Add',
+        hintStyle: TextStyle(
+          color: Color.fromARGB(104, 75, 116, 79),
+        ),
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
       ),
     );
   }
