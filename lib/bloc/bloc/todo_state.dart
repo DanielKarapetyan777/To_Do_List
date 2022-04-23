@@ -13,11 +13,12 @@ class TodoEmpty extends TodoState {}
 class TodoLoading extends TodoState {}
 
 class TodoLoaded extends TodoState {
-  final List<Todo> todos;
-  final Color color1;
+  final List todos;
+  final Color colortodo;
 
-  const TodoLoaded({this.todos = const <Todo>[], this.color1 = Colors.green});
+  const TodoLoaded(
+      {this.todos = const <Todo>[], this.colortodo = Colors.lightGreenAccent});
 
   @override
-  List<Object> get props => [todos, color1];
+  List<Object> get props => [todos, colortodo];
 }

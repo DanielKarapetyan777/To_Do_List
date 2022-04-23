@@ -11,6 +11,11 @@ class ToDoList extends StatefulWidget {
 }
 
 class ToDoListState extends State<ToDoList> {
+  TextEditingController controllerColor = TextEditingController();
+
+  bool drt = true;
+  Color? colorDK;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TodoBloc, TodoState>(
@@ -34,7 +39,7 @@ class ToDoListState extends State<ToDoList> {
               child: ListView.builder(
                   itemCount: state.todos.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return _todoCard(context, state.todos[index], index);
+                    return _todoCard(context, state.todos[index], index, state);
                   }),
             ),
           );
@@ -49,8 +54,14 @@ class ToDoListState extends State<ToDoList> {
     );
   }
 
-  Card _todoCard(BuildContext context, Todo todo, int index) {
+  Card _todoCard(
+    BuildContext context,
+    Todo todo,
+    int index,
+    TodoLoaded state,
+  ) {
     return Card(
+      color: state.colortodo,
       child: ListTile(
           leading: Text(
             (index + 1).toString(),
@@ -68,7 +79,10 @@ class ToDoListState extends State<ToDoList> {
                     Icons.done,
                     color: Color.fromARGB(255, 100, 168, 119),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    indexs = index;
+                    context.read<TodoBloc>().add(ColorTodo(todo: todo));
+                  },
                 ),
                 IconButton(
                   icon: const Icon(

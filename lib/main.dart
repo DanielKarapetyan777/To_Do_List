@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_list/bloc/bloc/color_bloq.dart';
 import 'package:to_do_list/bloc/bloc/todo_bloc.dart';
 import 'package:to_do_list/models/todo_model.dart';
 import 'home_page.dart';
@@ -19,19 +20,15 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => TodoBloc()
             ..add(
-              LoadTodos(todos: [
-                Todo(
-                  task: "Sample ToDo 1",
-                ),
-                Todo(
-                  task: "Sample ToDo 2",
-                ),
-                Todo(
-                  task: "Sample ToDo 3",
-                ),
-              ]),
+              LoadTodos(
+                todos: [
+                  Todo(task: "Sample ToDo 1", colortodo: Colors.white),
+                  Todo(task: "Sample ToDo 2", colortodo: Colors.white),
+                  Todo(task: "Sample ToDo 3", colortodo: Colors.white),
+                ],
+              ),
             ),
-        )
+        ),
       ],
       child: MaterialApp(
         title: 'Task 3',

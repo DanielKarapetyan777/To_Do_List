@@ -54,10 +54,10 @@ class TodoWhite extends TodosEvent {
 }
 
 class TodoGreen extends TodosEvent {
-  final List<Todo> todos;
+  final Color color;
 
-  const TodoGreen({this.todos = const <Todo>[]});
+  const TodoGreen({this.color = Colors.green});
 
   @override
-  List<Object> get props => [todos];
+  List<Object> get props => [color];
 }

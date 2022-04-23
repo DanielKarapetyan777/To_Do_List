@@ -5,7 +5,8 @@ import 'package:to_do_list/models/todo_model.dart';
 part 'todo_event.dart';
 part 'todo_state.dart';
 
-Color color1 = Colors.green;
+Color color2 = Colors.white;
+int indexs = 0;
 
 class TodoBloc extends Bloc<TodosEvent, TodoState> {
   TodoBloc() : super(TodoEmpty()) {
@@ -16,7 +17,7 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
   }
 
   void _onLoadTodus(LoadTodos event, Emitter<TodoState> emit) {
-    emit(TodoLoaded(todos: event.todos));
+    emit(TodoLoaded(todos: event.todos, colortodo: Colors.white));
   }
 
   void _onAddTodo(AddTodo event, Emitter<TodoState> emit) {
@@ -25,6 +26,7 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
       emit(
         TodoLoaded(
           todos: List.from(state.todos)..add(event.todo),
+          colortodo: Colors.white,
         ),
       );
     }
@@ -33,14 +35,22 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
   void _onDeleteTodo(DeleteTodo event, Emitter<TodoState> emit) {
     final state = this.state;
     if (state is TodoLoaded) {
-      List<Todo> todos = state.todos.where((todo) {
+      List todos = state.todos.where((todo) {
         return todo.task != event.todo.task;
       }).toList();
       emit(
-        TodoLoaded(todos: todos),
+        TodoLoaded(todos: todos, colortodo: Colors.white),
       );
     }
   }
 
-  void _onColorTodo(ColorTodo event, Emitter<TodoState> emit) {}
+  void _onColorTodo(ColorTodo event, Emitter<TodoState> emit) {
+    final state = this.state;
+    if (state is TodoLoaded) {
+      state.todos[indexs] = Colors.lightGreenAccent;
+      emit(
+        TodoLoaded(colortodo: state.colortodo, todos: state.todos),
+      );
+    }
+  }
 }
