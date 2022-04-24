@@ -23,7 +23,8 @@ class ButtonsAddClear extends StatelessWidget {
             child: TextButton(
               onPressed: () {
                 var todo = Todo(
-                    task: controllerTask.value.text, colortodo: Colors.white);
+                  task: controllerTask.value.text,
+                );
                 context.read<TodoBloc>().add(
                       AddTodo(todo: todo),
                     );

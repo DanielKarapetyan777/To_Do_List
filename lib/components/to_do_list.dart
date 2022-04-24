@@ -11,8 +11,6 @@ class ToDoList extends StatefulWidget {
 }
 
 class ToDoListState extends State<ToDoList> {
-  TextEditingController controllerColor = TextEditingController();
-
   bool drt = true;
   Color? colorDK;
 
@@ -67,7 +65,9 @@ class ToDoListState extends State<ToDoList> {
             (index + 1).toString(),
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
-          title: Text(todo.task),
+          title: Text(
+            todo.task,
+          ),
           trailing: SizedBox(
             height: double.infinity,
             width: 80,
@@ -81,7 +81,9 @@ class ToDoListState extends State<ToDoList> {
                   ),
                   onPressed: () {
                     indexs = index;
-                    context.read<TodoBloc>().add(ColorTodo(todo: todo));
+                    context.read<TodoBloc>().add(
+                          ColorTodo(todo: todo.copyWith(isCompleted: true)),
+                        );
                   },
                 ),
                 IconButton(

@@ -5,7 +5,7 @@ import 'package:to_do_list/models/todo_model.dart';
 part 'todo_event.dart';
 part 'todo_state.dart';
 
-Color color2 = Colors.white;
+Color colortodo = Colors.lightGreenAccent;
 int indexs = 0;
 
 class TodoBloc extends Bloc<TodosEvent, TodoState> {
@@ -26,7 +26,6 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
       emit(
         TodoLoaded(
           todos: List.from(state.todos)..add(event.todo),
-          colortodo: Colors.white,
         ),
       );
     }
@@ -47,10 +46,11 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
   void _onColorTodo(ColorTodo event, Emitter<TodoState> emit) {
     final state = this.state;
     if (state is TodoLoaded) {
-      state.todos[indexs] = Colors.lightGreenAccent;
-      emit(
-        TodoLoaded(colortodo: state.colortodo, todos: state.todos),
-      );
+      List todos = (state.todos.map((todo) {
+        return todo.task == event.todo.task ? event.todo : todo;
+      })).toList();
+
+      emit(TodoLoaded(todos: todos, colortodo: colortodo));
     }
   }
 }

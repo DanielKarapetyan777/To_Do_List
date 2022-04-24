@@ -29,7 +29,9 @@ class AddTodo extends TodosEvent {
 class ColorTodo extends TodosEvent {
   final Todo todo;
 
-  const ColorTodo({required this.todo});
+  const ColorTodo({
+    required this.todo,
+  });
 
   @override
   List<Object> get props => [todo];
@@ -43,7 +45,7 @@ class DeleteTodo extends TodosEvent {
   @override
   List<Object> get props => [todo];
 }
-
+/*
 class TodoWhite extends TodosEvent {
   final List<Todo> todos;
 
@@ -61,3 +63,4 @@ class TodoGreen extends TodosEvent {
   @override
   List<Object> get props => [color];
 }
+*/

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 class Todo extends Equatable {
   //final String id;
-  final Color colortodo;
+  //final Color colortodo;
   final String task;
   bool? isCompleted;
   bool? isCanselled;
 
   Todo({
     //required this.id,
-    required this.colortodo,
+    //required this.colortodo,
     required this.task,
     this.isCompleted,
     this.isCanselled,
@@ -31,14 +31,14 @@ class Todo extends Equatable {
       task: task ?? this.task,
       isCanselled: isCanselled ?? this.isCanselled,
       isCompleted: isCompleted ?? this.isCompleted,
-      colortodo: colortodo ?? this.colortodo,
+      //colortodo: colortodo ?? this.colortodo,
     );
   }
 
   @override
   List<Object?> get props => [
         //id,
-        colortodo,
+        //colortodo,
         task,
         isCanselled,
         isCompleted,
@@ -46,9 +46,12 @@ class Todo extends Equatable {
   static List<Todo> todos = [
     Todo(
       task: "Sample ToDo 1",
-      colortodo: Colors.white,
     ),
-    Todo(task: "Sample ToDo 2", colortodo: Colors.white),
-    Todo(task: "Sample ToDo 3", colortodo: Colors.white),
+    Todo(
+      task: "Sample ToDo 2",
+    ),
+    Todo(
+      task: "Sample ToDo 3",
+    ),
   ];
 }
