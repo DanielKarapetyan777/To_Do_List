@@ -17,7 +17,7 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
   }
 
   void _onLoadTodus(LoadTodos event, Emitter<TodoState> emit) {
-    emit(TodoLoaded(todos: event.todos, colortodo: Colors.white));
+    emit(TodoLoaded(todos: event.todos));
   }
 
   void _onAddTodo(AddTodo event, Emitter<TodoState> emit) {
@@ -25,7 +25,7 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
     if (state is TodoLoaded) {
       emit(
         TodoLoaded(
-          todos: List.from(state.todos)..add(event.todo),
+          todos: List<Todo>.from(state.todos)..add(event.todo),
         ),
       );
     }
@@ -34,11 +34,13 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
   void _onDeleteTodo(DeleteTodo event, Emitter<TodoState> emit) {
     final state = this.state;
     if (state is TodoLoaded) {
-      List todos = state.todos.where((todo) {
+      List<Todo> todos = state.todos.where((todo) {
         return todo.task != event.todo.task;
       }).toList();
       emit(
-        TodoLoaded(todos: todos, colortodo: Colors.white),
+        TodoLoaded(
+          todos: todos,
+        ),
       );
     }
   }
@@ -46,11 +48,22 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
   void _onColorTodo(ColorTodo event, Emitter<TodoState> emit) {
     final state = this.state;
     if (state is TodoLoaded) {
-      List todos = (state.todos.map((todo) {
-        return todo.task == event.todo.task ? event.todo : todo;
-      })).toList();
-
-      emit(TodoLoaded(todos: todos, colortodo: colortodo));
+      List<Todo> todos = [];
+      for (var todo in state.todos) {
+        if (todo.task == event.todo.task) {
+          if (todo.isCompleted == true) {
+            todo.isCompleted = false;
+          } else {
+            todo.isCompleted = true;
+          }
+          todos.add(todo);
+        } else if (todo.task != event.todo.task) {
+          todos.add(todo);
+        }
+        emit(
+          TodoLoaded(todos: todos),
+        );
+      }
     }
   }
 }

@@ -11,9 +11,6 @@ class ToDoList extends StatefulWidget {
 }
 
 class ToDoListState extends State<ToDoList> {
-  bool drt = true;
-  Color? colorDK;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TodoBloc, TodoState>(
@@ -52,63 +49,61 @@ class ToDoListState extends State<ToDoList> {
     );
   }
 
+  Color colortodo = Colors.white;
   Card _todoCard(
     BuildContext context,
     Todo todo,
     int index,
     TodoLoaded state,
   ) {
+    if (todo.isCompleted == true) {
+      colortodo = Colors.lightGreenAccent;
+    } else {
+      colortodo = Colors.white;
+    }
     return Card(
-      color: state.colortodo,
+      color: colortodo,
       child: ListTile(
-          leading: Text(
-            (index + 1).toString(),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-          title: Text(
-            todo.task,
-          ),
-          trailing: SizedBox(
-            height: double.infinity,
-            width: 80,
-            //color: Colors.amber,
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.done,
-                    color: Color.fromARGB(255, 100, 168, 119),
-                  ),
-                  onPressed: () {
-                    indexs = index;
-                    context.read<TodoBloc>().add(
-                          ColorTodo(todo: todo.copyWith(isCompleted: true)),
-                        );
-                  },
+        leading: Text(
+          (index + 1).toString(),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+        title: Text(
+          todo.task,
+        ),
+        trailing: Container(
+          height: double.infinity,
+          width: 80,
+          margin: const EdgeInsets.only(right: 20),
+          child: Row(
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.done,
+                  color: Color.fromARGB(255, 100, 168, 119),
                 ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.delete_sharp,
-                    color: Color.fromARGB(255, 100, 168, 119),
-                  ),
-                  onPressed: () {
-                    context.read<TodoBloc>().add(
-                          DeleteTodo(todo: todo),
-                        );
-                  },
+                onPressed: () {
+                  indexs = index;
+                  context.read<TodoBloc>().add(
+                        ColorTodo(todo: todo),
+                      );
+                },
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.delete_sharp,
+                  color: Color.fromARGB(255, 100, 168, 119),
                 ),
-              ],
-            ),
-          )),
+                onPressed: () {
+                  context.read<TodoBloc>().add(
+                        DeleteTodo(todo: todo),
+                      );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
-
-
-/* 
-@override
-  void initState() {
-    super.initState();
-    todolist.addAll(['Text1', 'Text2', 'Text3']);
-  }
-*/

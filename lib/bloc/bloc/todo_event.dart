@@ -29,9 +29,7 @@ class AddTodo extends TodosEvent {
 class ColorTodo extends TodosEvent {
   final Todo todo;
 
-  const ColorTodo({
-    required this.todo,
-  });
+  const ColorTodo({required this.todo});
 
   @override
   List<Object> get props => [todo];
