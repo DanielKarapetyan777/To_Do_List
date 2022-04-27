@@ -95,6 +95,7 @@ class ToDoListState extends State<ToDoList> {
                   color: Color.fromARGB(255, 100, 168, 119),
                 ),
                 onPressed: () {
+                  indexs = index;
                   context.read<TodoBloc>().add(
                         DeleteTodo(todo: todo),
                       );

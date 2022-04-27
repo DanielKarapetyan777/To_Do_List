@@ -22,13 +22,15 @@ class ButtonsAddClear extends StatelessWidget {
             height: 50,
             child: TextButton(
               onPressed: () {
-                var todo = Todo(
-                  task: controllerTask.value.text,
-                );
-                context.read<TodoBloc>().add(
-                      AddTodo(todo: todo),
-                    );
-                controllerTask.clear();
+                if (controllerTask.value.text != '') {
+                  var todo = Todo(
+                    task: controllerTask.value.text,
+                  );
+                  context.read<TodoBloc>().add(
+                        AddTodo(todo: todo),
+                      );
+                  controllerTask.clear();
+                }
               },
               child: const Text(
                 'Add',

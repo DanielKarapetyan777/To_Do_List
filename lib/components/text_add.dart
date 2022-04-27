@@ -52,9 +52,9 @@ class TextFieldAdd extends StatelessWidget {
     );
   }
 
-  // ignore: non_constant_identifier_names
   TextFormField _TextField(TextEditingController controller) {
     return TextFormField(
+      onChanged: (String value) {},
       controller: controller,
       decoration: const InputDecoration(
         hintText: 'Add',

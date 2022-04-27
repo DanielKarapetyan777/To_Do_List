@@ -7,6 +7,7 @@ part 'todo_state.dart';
 
 Color colortodo = Colors.lightGreenAccent;
 int indexs = 0;
+int id = 0;
 
 class TodoBloc extends Bloc<TodosEvent, TodoState> {
   TodoBloc() : super(TodoEmpty()) {
@@ -34,14 +35,23 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
   void _onDeleteTodo(DeleteTodo event, Emitter<TodoState> emit) {
     final state = this.state;
     if (state is TodoLoaded) {
-      List<Todo> todos = state.todos.where((todo) {
-        return todo.task != event.todo.task;
-      }).toList();
-      emit(
-        TodoLoaded(
-          todos: todos,
-        ),
-      );
+      List<Todo> todos = [];
+      List<Todo> delets = [];
+      for (var todo in state.todos) {
+        id = id + 1;
+        if (todo.task == event.todo.task && indexs + 1 == id) {
+          delets.add(todo);
+        } else if (todo.task != event.todo.task) {
+          todos.add(todo);
+        } else if (todo.task == event.todo.task && indexs + 1 != id) {
+          todos.add(todo);
+        }
+        emit(
+          TodoLoaded(todos: todos),
+        );
+      }
+
+      id = 0;
     }
   }
 
@@ -50,7 +60,8 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
     if (state is TodoLoaded) {
       List<Todo> todos = [];
       for (var todo in state.todos) {
-        if (todo.task == event.todo.task) {
+        id = id + 1;
+        if (todo.task == event.todo.task && indexs + 1 == id) {
           if (todo.isCompleted == true) {
             todo.isCompleted = false;
           } else {
@@ -59,11 +70,15 @@ class TodoBloc extends Bloc<TodosEvent, TodoState> {
           todos.add(todo);
         } else if (todo.task != event.todo.task) {
           todos.add(todo);
+        } else if (todo.task == event.todo.task && indexs + 1 != id) {
+          todos.add(todo);
         }
         emit(
           TodoLoaded(todos: todos),
         );
       }
+
+      id = 0;
     }
   }
 }
